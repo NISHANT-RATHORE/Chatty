@@ -1,0 +1,145 @@
+Got it! Combining **User** and **Media** into one service while keeping **Chat** and **Notification** as separate services is a great idea. This strikes a balance between simplicity and modularity. Here's the updated HLD:
+
+---
+
+### **Updated High-Level Design (HLD)**
+
+#### **Microservices**
+
+1. **User and Media Service**  
+   - **Responsibilities**:  
+     - User management: Registration, login, JWT-based authentication.  
+     - User profile handling: Update profile and fetch user information.  
+     - Media management: Upload media, store metadata, and retrieve links.  
+   - **Database**:  
+     - MongoDB with collections for `users` and `media`.  
+   - **Endpoints**:  
+     - **User Management**:  
+       - POST `/register`: Register a user.  
+       - POST `/login`: Authenticate and issue a JWT.  
+       - GET `/profile/{userId}`: Fetch user profile.  
+       - PUT `/profile/{userId}`: Update user profile.  
+     - **Media Management**:  
+       - POST `/upload`: Upload media and return a Cloudinary URL.  
+       - GET `/media/{mediaId}`: Retrieve media metadata or file link.
+
+2. **Chat Service**  
+   - **Responsibilities**:  
+     - Handles chat-related features:  
+       - One-to-one and group messaging.  
+       - Message persistence and retrieval.  
+   - **Database**:  
+     - MongoDB with collections for `messages` and `chatRooms`.  
+   - **Endpoints**:  
+     - POST `/send`: Send a message.  
+     - GET `/fetch?chatId={id}`: Fetch chat history.  
+     - POST `/createGroup`: Create a new group chat.  
+
+3. **Notification Service**  
+   - **Responsibilities**:  
+     - Real-time notifications for new messages or events.  
+   - **Technology**:  
+     - **WebSocket** or **Server-Sent Events (SSE)** for real-time updates.  
+   - **Implementation**:  
+     - Listens to message events from the Chat Service (via Kafka or direct communication).  
+     - Pushes notifications to clients connected via WebSocket.  
+
+4. **Gateway Service**  
+   - **Responsibilities**:  
+     - Acts as the single entry point for all external requests.  
+     - Handles routing to other microservices.  
+     - Centralized authentication and authorization using JWT.  
+   - **Implementation**:  
+     - Spring Cloud Gateway.  
+     - JWT validation filters for protected routes.
+
+5. **Service Registry**  
+   - **Responsibilities**:  
+     - Registers and discovers services.  
+     - Facilitates communication between services.  
+   - **Implementation**:  
+     - Spring Cloud Eureka.
+
+---
+
+### **Workflow**
+
+1. **Authentication and Authorization**  
+   - Users authenticate through the Gateway Service, which routes the request to the User and Media Service.  
+   - A JWT is issued upon successful login and used for subsequent requests.  
+
+2. **Chat Flow**  
+   - Messages are sent via the Gateway to the Chat Service.  
+   - Chat history is retrieved from the Chat Service when requested.  
+   - Notifications for new messages are handled by the Notification Service via WebSocket.  
+
+3. **Media Sharing**  
+   - Users upload media files to the User and Media Service, which integrates with Cloudinary for storage.  
+   - The generated link is returned and sent as part of chat messages via the Chat Service.  
+
+---
+
+### **Database Schema**
+
+1. **Users Collection** (User and Media Service)  
+   ```json
+   {
+       "userId": "unique_id",
+       "name": "John Doe",
+       "email": "john@example.com",
+       "password": "hashed_password",
+       "profilePicture": "url_to_profile_picture"
+   }
+   ```
+
+2. **Media Collection** (User and Media Service)  
+   ```json
+   {
+       "mediaId": "unique_id",
+       "uploaderId": "user_id",
+       "mediaUrl": "https://cloudinary.com/media_link",
+       "uploadedAt": "ISO_datetime"
+   }
+   ```
+
+3. **Messages Collection** (Chat Service)  
+   ```json
+   {
+       "messageId": "unique_id",
+       "chatId": "chat_room_id",
+       "senderId": "user_id",
+       "message": "Hello, world!",
+       "mediaUrl": "optional_media_url",
+       "timestamp": "ISO_datetime"
+   }
+   ```
+
+4. **Chat Rooms Collection** (Chat Service)  
+   ```json
+   {
+       "chatId": "unique_id",
+       "participants": ["user_id_1", "user_id_2", ...],
+       "createdAt": "ISO_datetime"
+   }
+   ```
+
+---
+
+### **Advantages of This Setup**
+
+1. **Simplified Microservices**:  
+   - Combines related functionalities into fewer services for easier management.  
+
+2. **Clear Separation of Concerns**:  
+   - User and Media operations are logically grouped.  
+   - Chat and Notification remain independent for scalability.
+
+3. **Centralized Authentication**:  
+   - Gateway ensures all requests are authenticated and authorized.
+
+4. **Scalability**:  
+   - Chat and Notification Services can be scaled independently as traffic increases.
+
+---
+
+Let me know if you'd like further adjustments or detailed implementation guidance!
