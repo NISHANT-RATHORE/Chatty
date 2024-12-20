@@ -4,6 +4,7 @@ import com.example.userservice.DTO.AddUserRequest;
 import com.example.userservice.DTO.LoginRequest;
 import com.example.userservice.Mapper.LoginMapper;
 import com.example.userservice.Model.User;
+import com.example.userservice.Repository.UserRepository;
 import com.example.userservice.Service.UserService;
 import com.example.userservice.Util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +20,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @Slf4j
@@ -30,12 +30,14 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserRepository userRepository, UserRepository userRepository1) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.userRepository = userRepository1;
     }
 
    @PostMapping("/register")
@@ -123,6 +125,44 @@ public class UserController {
         } else {
             log.warn("User is not authenticated");
             return ResponseEntity.status(401).body("User is not authenticated");
+        }
+    }
+
+    @PutMapping("/update-profile")
+    public ResponseEntity<String> updateProfile(@RequestParam(required = false)MultipartFile image, @CookieValue(name = "jwt", required = false) String token) {
+        String username = jwtUtil.extractUsername(token);
+        if(username == null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated or not found");
+        }
+        User user = userRepository.findByEmail(username);
+        String imageUrl = userService.updateProfile(image,user);
+        if(imageUrl == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Image upload failed");
+        }
+        return ResponseEntity.ok(imageUrl);
+    }
+
+//    @PutMapping("/update-profile")
+//    public ResponseEntity<String> updateProfile(@RequestParam(required = false) String base64Image) {
+//        if (base64Image == null || base64Image.isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Image upload failed");
+//        }
+//        String imageUrl = userService.uploadBase64Image(base64Image);
+//        if (imageUrl == null) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Image upload failed");
+//        }
+//        return ResponseEntity.ok(imageUrl);
+//    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<User> getProfile(@CookieValue(name = "jwt", required = false) String token) {
+        if (token != null && jwtUtil.validateToken(token)) {
+            String username = jwtUtil.extractUsername(token);
+            User user = userService.getUserByEmail(username);
+            return ResponseEntity.ok(user);
+        } else {
+            log.warn("User is not authenticated");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 

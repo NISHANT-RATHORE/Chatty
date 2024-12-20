@@ -7,17 +7,16 @@ import Login from './pages/Login'
 import Settings from './pages/Settings'
 import Profile from './pages/Profile'
 import { useAuthStore } from './store/UseAuthStore'
+import {useThemeStore} from './store/UseThemeStore.js'
 import { Loader } from 'lucide-react'
 import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   const {authUser,checkAuth,isCheckingAuth} = useAuthStore()
-
+    // const {theme} = useThemeStore()
   useEffect(()=>{
     checkAuth()
   },[checkAuth])
-
-  console.log({authUser})
 
   if(isCheckingAuth && !authUser) return(
     <div className='flex items-center justify-center h-screen'>
@@ -32,7 +31,7 @@ const App = () => {
         <Route path="/" element={authUser ? <Home /> : <Navigate to="/login"/>} />
         <Route path="/sign-up" element={!authUser ? <SignUp /> : <Navigate to="/"/>} />
         <Route path="/login" element={!authUser ? <Login /> : <Navigate to="/"/>} />
-        <Route path="/setting" element={<Settings />} />
+        {/*<Route path="/settings" element={<Settings />} />*/}
         <Route path='/profile' element={authUser ? <Profile /> : <Navigate to="/login"/>} />
       </Routes>
 

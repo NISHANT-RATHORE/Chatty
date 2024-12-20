@@ -15,7 +15,7 @@ export const useAuthStore = create((set) => ({
             const res = await axiosInstance.get("/check-auth");
             set({authUser:res.data})
         } catch (error) {
-            console.log("error in checkAuth", error)
+            // console.log("error in checkAuth", error)
             set({authUser:null})
         } finally{
             set({isCheckingAuth:false})
@@ -27,6 +27,7 @@ export const useAuthStore = create((set) => ({
         try {
             const res = await axiosInstance.post("/register", data);
             set({authUser:res.data})
+            console.log({authUser:res.data})
             toast.success("Account created successfully")
         } catch (error) {
             console.log("error in signup", error)
@@ -58,6 +59,8 @@ export const useAuthStore = create((set) => ({
                 }
             })
             set({authUser:res.data})
+            console.log({authUser:res.data})
+            console.log({authUser:res.data.email})
             toast.success("Logged in successfully")
         } catch (error) {
             console.log("error in login", error)
@@ -66,8 +69,34 @@ export const useAuthStore = create((set) => ({
             set({isLoggingIn:false})
         }
 
-    }
+    },
 
+    updateProfile : async(data) => {
+        set({isUpdatingProfile:true})
+        try {
+            const res = await axiosInstance.put("/update-profile", data,{
+                headers:{
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            set({authUser:res.data})
+            toast.success("Profile updated successfully")
+        } catch (error) {
+            console.log("error in updateProfile", error)
+            toast.error(error)
+        } finally{
+            set({isUpdatingProfile:false})
+        }
+    },
+
+        getProfile : async () => {
+            try {
+                const res = await axiosInstance.get("/profile");
+                set({authUser:res.data})
+            } catch (error) {
+                console.log("error in getProfile", error)
+            }
+        }
 
 }
 
