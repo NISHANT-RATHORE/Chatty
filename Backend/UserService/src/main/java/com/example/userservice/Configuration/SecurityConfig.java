@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/logout").permitAll()
                         .requestMatchers("/user/check-auth").permitAll()
                         .requestMatchers("/user/profile").permitAll()
-                        .requestMatchers("/user//update-profile").permitAll()
+                        .requestMatchers("/user/update-profile").permitAll()
                         .requestMatchers("/user/**").hasAnyRole("ADMIN","USER")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

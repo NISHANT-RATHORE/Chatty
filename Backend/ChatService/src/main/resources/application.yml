@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: chat-service
+  data:
+    mongodb:
+      uri: "mongodb+srv://nishantrathore2002:rootuser@cluster0.0l1yo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+      database: "ChatService"
+
+server:
+  port: 9002
