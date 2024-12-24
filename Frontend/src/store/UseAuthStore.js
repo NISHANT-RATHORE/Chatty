@@ -9,10 +9,11 @@ export const useAuthStore = create((set) => ({
     isLoggingIn : false,
     isUpdatingProfile : false,
     isCheckingAuth : true,
+    onlineUsers : [],
 
     checkAuth: async () => {
         try {
-            const res = await axiosInstance.get("/check-auth");
+            const res = await axiosInstance.get("/user/check-auth");
             set({authUser:res.data})
         } catch (error) {
             console.log("error in checkAuth", error)
@@ -25,7 +26,7 @@ export const useAuthStore = create((set) => ({
     signup : async (data) => {
         set({isSigningUp:true})
         try {
-            const res = await axiosInstance.post("/register", data);
+            const res = await axiosInstance.post("/user/register", data);
             set({authUser:res.data})
             toast.success("Account created successfully")
         } catch (error) {
@@ -39,7 +40,7 @@ export const useAuthStore = create((set) => ({
 
     logout : async () => {
         try {
-            await axiosInstance.post("/logout")
+            await axiosInstance.post("/user/logout")
             set({authUser:null})
             toast.success("Logged out successfully")
         } catch (error) {
@@ -51,7 +52,7 @@ export const useAuthStore = create((set) => ({
         set({isLoggingIn:true})
         try { 
             const authHeader = `Basic ${btoa(`${data.email}:${data.password}`)}`
-            const res = await axiosInstance.post("/login", data,{
+            const res = await axiosInstance.post("/user/login", data,{
                 headers:{
                     'Content-Type': 'application/json',
                     'Authorization': authHeader
@@ -66,7 +67,34 @@ export const useAuthStore = create((set) => ({
             set({isLoggingIn:false})
         }
 
-    }
+    },
+
+    updateProfile : async(data) => {
+        set({isUpdatingProfile:true})
+        try {
+            const res = await axiosInstance.put("/user/update-profile", data,{
+                headers:{
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            set({authUser:res.data})
+            toast.success("Profile updated successfully")
+        } catch (error) {
+            console.log("error in updateProfile", error)
+            toast.error(error)
+        } finally{
+            set({isUpdatingProfile:false})
+        }
+    },
+
+        getProfile : async () => {
+            try {
+                const res = await axiosInstance.get("/user/profile");
+                set({authUser:res.data})
+            } catch (error) {
+                console.log("error in getProfile", error)
+            }
+        }
 
 
 }
