@@ -106,4 +106,16 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    public UserData getUserById(String id) {
+        User user = userRepository.findByUserId(id);
+        UserData userData = new UserData(
+                user.getUserId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getImage(),
+                user.getCreatedAt()
+        );
+        return userData;
+    }
 }

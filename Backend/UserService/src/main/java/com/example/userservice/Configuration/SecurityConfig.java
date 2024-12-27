@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/profile").permitAll()
                         .requestMatchers("/user/update-profile").permitAll()
                         .requestMatchers("/user/getAllUsers").permitAll()
-                        .requestMatchers("/user/**").hasAnyRole("ADMIN","USER")
+                        .requestMatchers("/user/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import toast from "react-hot-toast";
-import  axiosInstance  from "../lib/axios";
+import axiosInstance from "../lib/axios";
 import { useAuthStore } from "./UseAuthStore";
 
 export const useChatStore = create((set, get) => ({
@@ -33,15 +33,47 @@ export const useChatStore = create((set, get) => ({
       set({ isMessagesLoading: false });
     }
   },
-  sendMessage: async (messageData) => {
+
+  sendMessage: async (payload) => {
+    const { text, image } = payload; // Destructure text and image from the payload
+    console.log("Type of text:", typeof text); // Debug the type of `text`
+    
     const { selectedUser, messages } = get();
-    try {
-      const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
-      set({ messages: [...messages, res.data] });
-    } catch (error) {
-      toast.error(error.response.data.message);
+
+    if (!selectedUser || !selectedUser.userId) {
+        console.error("Selected user is not available.");
+        toast.error("Please select a user to send the message.");
+        return;
     }
-  },
+
+    // Prepare FormData for the request
+    const formData = new FormData();
+    formData.append("text", text ? text.toString() : ""); // Ensure text is always a string
+    if (image) {
+        formData.append("image", image); // Append the image only if provided
+    }
+
+    console.log([...formData.entries()]); // Debug: Check FormData content
+
+    try {
+        // Make the POST request
+        const res = await axiosInstance.post(`/messages/send/${selectedUser.userId}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        // Update messages state with the new message
+        set({ messages: [...messages, res.data] });
+    } catch (error) {
+        console.error("Error in sendMessage:", error);
+
+        // Provide user feedback
+        const errorMessage = error.response?.data?.message || "Failed to send the message.";
+        toast.error(errorMessage);
+    }
+},
+
 
   subscribeToMessages: () => {
     const { selectedUser } = get();

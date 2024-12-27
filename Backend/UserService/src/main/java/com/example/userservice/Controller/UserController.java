@@ -27,9 +27,8 @@ import java.util.List;
 
 @RestController
 @Slf4j
-//@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RequestMapping("/user")
-public class UserController {
+public class  UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
@@ -145,6 +144,25 @@ public class UserController {
         return ResponseEntity.ok(imageUrl);
     }
 
+    @GetMapping("/getId")
+    public ResponseEntity<String> getId(@CookieValue(name = "jwt", required = false) String token) {
+        try{
+            if (token != null && jwtUtil.validateToken(token)) {
+//                log.info("accessing user from db......");
+                String username = jwtUtil.extractUsername(token);
+                User user = userService.getUserByEmail(username);
+//                log.info("sucessfully accessed user !");
+                return ResponseEntity.ok(user.getUserId());
+            } else {
+                log.warn("User is not authenticated");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch (Exception e) {
+            log.error("Error retrieving user", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
     @GetMapping("/profile")
     public ResponseEntity<User> getProfile(@CookieValue(name = "jwt", required = false) String token) {
@@ -158,12 +176,30 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getUserById/{id}")
+    public ResponseEntity<UserData> getUserById(@PathVariable String id){
+        try{
+//            log.info("accessing user from db......");
+            UserData user = userService.getUserById(id);
+//            log.info("sucessfully accessed user !");
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            log.error("Error retrieving user", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @GetMapping("/getAllUsers")
     public ResponseEntity<List<UserData>> getAll(){
-        log.info("accessing users from db......");
-        List<UserData> allUsers = userService.getAllUsers();
-        log.info("sucessfully accessed users !");
-        return ResponseEntity.ok(allUsers);
+        try{
+//            log.info("accessing users from db......");
+            List<UserData> allUsers = userService.getAllUsers();
+//            log.info("sucessfully accessed users !");
+            return ResponseEntity.ok(allUsers);
+        } catch (Exception e) {
+            log.error("Error retrieving users", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }
