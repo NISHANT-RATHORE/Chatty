@@ -18,3 +18,13 @@ cloudinary:
   cloud_name: "dctoqfkw0"
   api_key: "951526354525734"
   api_secret: "0YOP7Q-AasOxPHuE7O5w-A5Hwhw"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

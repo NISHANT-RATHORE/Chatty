@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/Backend/ChatService/pom.xml" />
         <option value="$PROJECT_DIR$/Backend/UserService/pom.xml" />
         <option value="$PROJECT_DIR$/Backend/ServiceRegistry/pom.xml" />
+        <option value="$PROJECT_DIR$/Backend/CloudGateway/pom.xml" />
       </list>
     </option>
   </component>
