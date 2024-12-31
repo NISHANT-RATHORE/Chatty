@@ -12,6 +12,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="NotificationService" />
         <module name="ServiceRegistry" />
         <module name="CloudGateway" />
       </profile>
@@ -39,6 +40,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ChatService" options="-parameters" />
       <module name="CloudGateway" options="-parameters" />
+      <module name="NotificationService" options="-parameters" />
       <module name="ServiceRegistry" options="-parameters" />
       <module name="UserService" options="-parameters" />
     </option>

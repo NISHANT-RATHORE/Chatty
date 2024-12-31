@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useAuthStore } from '../store/UseAuthStore.js';
 
 const NoChatSelected = () => {
-  return (
-    <div>NoChatSelected</div>
-  )
-}
+    const { getProfile } = useAuthStore();
 
-export default NoChatSelected
+    useEffect(() => {
+        getProfile();
+    }, [getProfile]);
+
+    return (
+        <div>NoChatSelected</div>
+    );
+};
+
+export default NoChatSelected;

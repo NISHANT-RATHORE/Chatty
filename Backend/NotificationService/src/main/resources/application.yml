@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: notification-service
+
+server:
+  port: 9004
+
+eureka:
+  client:
+    service-url:   # corrected from 'service-url' to 'serviceUrl' (case-sensitive)
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true  # Use IP address instead of hostname for service registration
+
+logging:
+  level:
+    io:
+      netty: "DEBUG"  # Enable debug logging for Netty (networking)
+    org:
+      springframework:
+        web:
+          socket: "DEBUG"  # Enable debug logging for WebSocket (Spring WebSocket)

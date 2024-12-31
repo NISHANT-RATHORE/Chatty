@@ -3,15 +3,6 @@ spring:
     name: cloud-gateway
   cloud:
     gateway:
-      routes:
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/user/**
-        - id: chat-service
-          uri: lb://chat-service
-          predicates:
-            - Path=/messages/**
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       global-cors:
@@ -26,7 +17,6 @@ spring:
                 allowedHeaders:
                 - "*"
                 allowCredentials: true
-
 
 eureka:
   client:
