@@ -17,7 +17,8 @@ export const useAuthStore = create((set, get) => ({
     checkAuth: async () => {
         try {
             const res = await axiosInstance.get("/user/check-auth");
-            set({authUser: res.data});
+            set({authUser: res.data})
+            await get().connectWebSocket()
         } catch (error) {
             console.log("error in checkAuth", error);
             set({authUser: null});
@@ -32,7 +33,7 @@ export const useAuthStore = create((set, get) => ({
             const res = await axiosInstance.post("/user/register", data);
             set({authUser: res.data});
             toast.success("Account created successfully");
-            get().connectWebSocket();
+            await get().connectWebSocket();
         } catch (error) {
             console.log("error in signup", error);
             toast.error("Error creating account or user already exists");
@@ -64,7 +65,7 @@ export const useAuthStore = create((set, get) => ({
             });
             set({authUser: res.data});
             toast.success("Logged in successfully");
-            get().connectWebSocket();
+            await get().connectWebSocket();
         } catch (error) {
             console.log("error in login", error);
             toast.error("Error logging in");
@@ -126,8 +127,7 @@ export const useAuthStore = create((set, get) => ({
                     set({onlineUsers: online});
                 } else if (message.type === "NEW_MESSAGE") {
                     const {selectedUser, messages} = useChatStore.getState();
-                    // eslint-disable-next-line no-constant-binary-expression
-                    if ({useChatStore:selectedUser} && message.senderId === selectedUser.userId) {
+                    if (selectedUser && message.senderId === selectedUser.userId) {
                         set({messages: [...messages, message]});
                     }
                 }

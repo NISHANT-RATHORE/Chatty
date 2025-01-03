@@ -1,4 +1,4 @@
-import React from 'react'
+import 'react'
 import {useChatStore} from "../store/useChatStore"
 import Sidebar from "../Components/Sidebar";
 import NoChatSelected from "../Components/NoChatSelected";

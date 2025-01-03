@@ -37,7 +37,7 @@ export const useChatStore = create((set, get) => ({
 
     sendMessage: async (payload) => {
         const { text, image } = payload;
-        const { selectedUser, messages } = get();
+        const { selectedUser } = get();
 
         if (!selectedUser || !selectedUser.userId) {
             toast.error("Please select a user to send the message.");
@@ -57,7 +57,7 @@ export const useChatStore = create((set, get) => ({
                 },
             });
 
-            set({ messages: [...messages, res.data] });
+            // set({ messages: [...messages, res.data] });
 
             const socket = useAuthStore.getState().socket;
             if (socket) {

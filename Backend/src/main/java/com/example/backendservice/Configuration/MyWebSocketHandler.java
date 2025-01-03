@@ -1,6 +1,8 @@
 package com.example.backendservice.Configuration;
 
 import com.example.backendservice.Model.Message;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -15,13 +17,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MyWebSocketHandler extends TextWebSocketHandler {
 
     private final static ConcurrentHashMap<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
-    private final static ConcurrentHashMap<String, String> onlineUsers = new ConcurrentHashMap<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         String userId = getUserIdFromSession(session);
         if (userId != null) {
-            addUserSession(session, userId);
+            sessions.put(userId, session);
             broadcastOnlineUsers();
             log.info("User connected: {} with sessionId: {}", userId, session.getId());
         } else {
@@ -38,23 +39,16 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        removeUserSession(session);
-        broadcastOnlineUsers();
-        log.info("User disconnected: {}", session.getId());
-    }
-
-    private void addUserSession(WebSocketSession session, String userId) {
-        sessions.put(session.getId(), session);
-        onlineUsers.put(session.getId(), userId);
-    }
-
-    private void removeUserSession(WebSocketSession session) {
-        sessions.remove(session.getId());
-        onlineUsers.remove(session.getId());
+        String userId = getUserIdFromSession(session);
+        if (userId != null) {
+            sessions.remove(userId);
+            broadcastOnlineUsers();
+            log.info("User disconnected: {}", session.getId());
+        }
     }
 
     private void broadcastOnlineUsers() {
-        String onlineUsersList = String.join(",", onlineUsers.values());
+        String onlineUsersList = String.join(",", sessions.keySet());
         TextMessage message = new TextMessage("{\"type\":\"ONLINE_USERS\",\"users\":\"" + onlineUsersList + "\"}");
         sessions.values().forEach(session -> sendMessage(session, message));
     }
@@ -88,9 +82,15 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     }
 
     public void broadcastMessage(Message message) {
-        String jsonMessage = String.format("{\"type\":\"NEW_MESSAGE\",\"message\":\"%s\",\"senderId\":\"%s\"}",
-                message.getMessage(), message.getSenderId());
-        TextMessage textMessage = new TextMessage(jsonMessage);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode jsonMessage = mapper.createObjectNode();
+        jsonMessage.put("type", "NEW_MESSAGE");
+        jsonMessage.put("message", message.getMessage());
+        jsonMessage.put("image", message.getImage());
+        jsonMessage.put("senderId", message.getSenderId());
+        jsonMessage.put("createdAt", message.getCreatedAt().toString());
+
+        TextMessage textMessage = new TextMessage(jsonMessage.toString());
         log.info("Broadcasting message from senderId {}: {}", message.getSenderId(), message.getMessage());
         log.info("sessions: {}", sessions);
         sessions.values().forEach(session -> {
