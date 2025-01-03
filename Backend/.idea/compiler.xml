@@ -1,48 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <option name="BUILD_PROCESS_HEAP_SIZE" value="800" />
-    <excludeFromCompile>
-      <file url="file://$PROJECT_DIR$/UserService/src/main/java/com/example/userservice/Service/UserService.java" />
-      <file url="file://$PROJECT_DIR$/UserService/src/main/java/com/example/userservice/Mapper/UserMapper.java" />
-    </excludeFromCompile>
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="NotificationService" />
-        <module name="ServiceRegistry" />
-        <module name="CloudGateway" />
-      </profile>
-      <profile name="Annotation profile for UserService" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
-        </processorPath>
-        <module name="UserService" />
-      </profile>
-      <profile name="Annotation profile for ChatService" enabled="true">
+      <profile name="Annotation profile for BackendService" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
-        <module name="ChatService" />
+        <module name="BackendService" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ChatService" options="-parameters" />
-      <module name="CloudGateway" options="-parameters" />
-      <module name="NotificationService" options="-parameters" />
-      <module name="ServiceRegistry" options="-parameters" />
-      <module name="UserService" options="-parameters" />
+      <module name="BackendService" options="-parameters" />
     </option>
   </component>
 </project>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="76772c64-249a-468d-a20e-199a5348682b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Backend/src/main/java/com/example/backendservice/Configuration/ClodinaryConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Backend/src/main/java/com/example/backendservice/Configuration/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.idea/Backend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.idea/JetClient/state.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.idea/jpa.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/ChatServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/Client/UserServiceClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/Configuration/ClodinaryConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/Configuration/CustomWebSocketHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/Controller/MessageController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/DTO/ImageModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/DTO/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/Model/Message.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/Repository/MessageRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/Service/CloudinaryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/Service/CloudinaryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/java/com/example/chatservice/Service/MessageService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ChatService/src/test/java/com/example/chatservice/ChatServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/src/main/java/com/example/cloudgateway/CloudGatewayApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/src/main/java/com/example/cloudgateway/Configuration/GatewayConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/CloudGateway/src/test/java/com/example/cloudgateway/CloudGatewayApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/src/main/java/com/example/notificationservice/Configuration/MyWebSocketHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/src/main/java/com/example/notificationservice/Configuration/WebSocketConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/src/main/java/com/example/notificationservice/NotificationServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/NotificationService/src/test/java/com/example/notificationservice/NotificationServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ServiceRegistry/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ServiceRegistry/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ServiceRegistry/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ServiceRegistry/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ServiceRegistry/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ServiceRegistry/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ServiceRegistry/src/main/java/com/example/serviceregistry/ServiceRegistryApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ServiceRegistry/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ServiceRegistry/src/test/java/com/example/serviceregistry/ServiceRegistryApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Configuration/ClodinaryConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Configuration/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/DTO/AddUserRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/DTO/ImageModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/DTO/LoginRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/DTO/UserData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Filter/JwtFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Mapper/LoginMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Mapper/UserMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Service/CloudinaryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Service/CloudinaryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/UserServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/java/com/example/userservice/Util/JwtUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/UserService/src/test/java/com/example/userservice/UserServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/Components/ChatContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/Components/ChatContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/store/UseAuthStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/store/UseAuthStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/store/useChatStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/store/useChatStore.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2r4wZgFmipr9S5ZDybYjNldj7SI" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.BackendServiceApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/nishant/webstorm/Real-Time-Chat-App-Project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/example/backendservice/Configuration" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/example/backendservice" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="BackendServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="BackendService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.backendservice.BackendServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="76772c64-249a-468d-a20e-199a5348682b" name="Changes" comment="" />
+      <created>1735831726923</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1735831726923</updated>
+      <workItem from="1735831734499" duration="950000" />
+      <workItem from="1735834787368" duration="1081000" />
+      <workItem from="1735836101334" duration="442000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
