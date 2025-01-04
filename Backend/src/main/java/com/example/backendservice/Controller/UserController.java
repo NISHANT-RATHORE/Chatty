@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,8 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Slf4j
 @RequestMapping("/user")
- @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
-public class  UserController {
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
@@ -40,7 +41,7 @@ public class  UserController {
         this.userRepository = userRepository1;
     }
 
-   @PostMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<User> addUser(@RequestBody AddUserRequest request) {
         try {
             log.info("Received request to add user: {}", request.getEmail());
@@ -117,6 +118,7 @@ public class  UserController {
 
 
     @GetMapping("/check-auth")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<String> checkAuthentication(@CookieValue(name = "jwt", required = false) String token) {
         if (token != null && jwtUtil.validateToken(token)) {
             String username = jwtUtil.extractUsername(token);
@@ -129,14 +131,15 @@ public class  UserController {
     }
 
     @PutMapping("/update-profile")
-    public ResponseEntity<String> updateProfile(@RequestParam(required = false)MultipartFile image, @CookieValue(name = "jwt", required = false) String token) {
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<String> updateProfile(@RequestParam(required = false) MultipartFile image, @CookieValue(name = "jwt", required = false) String token) {
         String username = jwtUtil.extractUsername(token);
-        if(username == null){
+        if (username == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated or not found");
         }
         User user = userRepository.findByEmail(username);
-        String imageUrl = userService.updateProfile(image,user);
-        if(imageUrl == null){
+        String imageUrl = userService.updateProfile(image, user);
+        if (imageUrl == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Image upload failed");
         }
         return ResponseEntity.ok(imageUrl);
@@ -144,7 +147,7 @@ public class  UserController {
 
     @GetMapping("/getId")
     public ResponseEntity<String> getId(@CookieValue(name = "jwt", required = false) String token) {
-        try{
+        try {
             if (token != null && jwtUtil.validateToken(token)) {
 //                log.info("accessing user from db......");
                 String username = jwtUtil.extractUsername(token);
@@ -163,6 +166,7 @@ public class  UserController {
 
 
     @GetMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<User> getProfile(@CookieValue(name = "jwt", required = false) String token) {
         if (token != null && jwtUtil.validateToken(token)) {
             String username = jwtUtil.extractUsername(token);

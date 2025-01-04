@@ -69,8 +69,8 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public List<User> getAllUsers(String token) {
+        return userService.getAllUsers(token);
     }
 
     public String getId(String jwt) {

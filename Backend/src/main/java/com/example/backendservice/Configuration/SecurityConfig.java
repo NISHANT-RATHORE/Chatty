@@ -30,14 +30,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(request -> request
                         .requestMatchers("/user/register").permitAll()
-                        .requestMatchers("/user/login").hasRole("USER")
+                        .requestMatchers("/user/login").permitAll()
                         .requestMatchers("/user/logout").permitAll()
                         .requestMatchers("/user/check-auth").permitAll()
-                        .requestMatchers("/user/profile").permitAll()
-                        .requestMatchers("/user/update-profile").permitAll()
-                        .requestMatchers("/user/getAllUsers").permitAll()
-                        .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/messages/**").permitAll()
+                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/messages/**").authenticated()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)

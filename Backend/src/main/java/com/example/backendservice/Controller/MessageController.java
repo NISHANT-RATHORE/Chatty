@@ -27,9 +27,9 @@ public class MessageController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getUserData() {
+    public ResponseEntity<List<User>> getUserData(@CookieValue(value = "jwt") String jwt) {
         try {
-            List<User> users = messageService.getAllUsers();
+            List<User> users = messageService.getAllUsers(jwt);
             return ResponseEntity.ok(users);
         } catch (Exception e) {
             log.error("Error retrieving users", e);

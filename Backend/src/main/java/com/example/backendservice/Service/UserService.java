@@ -90,8 +90,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(username);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<User> getAllUsers(String token) {
+        User user = userRepository.findByEmail(jwtUtil.extractUsername(token));
+        return userRepository.findAll().stream()
+                .filter(u -> !u.getUserId().equals(user.getUserId()))
+                .toList();
     }
 
     public String getId(String jwt) {
