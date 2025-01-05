@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Slf4j
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "${FRONTEND_URL}", allowCredentials = "true")
 public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;

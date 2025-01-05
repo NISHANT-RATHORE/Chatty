@@ -3,14 +3,14 @@ spring:
     name: real-time-chat-app
   data:
     mongodb:
-      uri: "mongodb+srv://nishantrathore2002:rootuser@cluster0.0l1yo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-      database: "UserService"
+      uri: ${MONGODB_URI}
+      database: ${MONGODB_DATABASE}
 
 server:
-  port: 9001
+  port: ${SERVER_PORT:9001}
 
 
 cloudinary:
-  cloud_name: "dctoqfkw0"
-  api_key: "951526354525734"
-  api_secret: "0YOP7Q-AasOxPHuE7O5w-A5Hwhw"
+  cloud_name: ${CLOUDINARY_CLOUD_NAME}
+  api_key: ${CLOUDINARY_API_KEY}
+  api_secret: ${CLOUDINARY_API_SECRET}

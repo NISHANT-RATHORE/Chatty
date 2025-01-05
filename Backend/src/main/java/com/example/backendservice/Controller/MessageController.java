@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/messages")
 @Slf4j
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "${FRONTEND_URL}", allowCredentials = "true")
 public class MessageController {
 
     private final MessageService messageService;

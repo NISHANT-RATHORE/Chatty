@@ -3,6 +3,7 @@ import {create} from "zustand";
 import toast from "react-hot-toast";
 import {useChatStore} from "./useChatStore.js";
 
+const webSocketUrl = import.meta.env.VITE_WEBSOCKET_URL;
 export const useAuthStore = create((set, get) => ({
     authUser: null,
     isSigningUp: false,
@@ -111,15 +112,13 @@ export const useAuthStore = create((set, get) => ({
         }
 
         const id = authUser.userId;
-        const socket = new WebSocket(`ws://localhost:9001/messages?userId=${id}`);
-
+        const socket = new WebSocket(`${webSocketUrl}/messages?userId=${id}`);
         socket.onopen = () => {
             toast.success("Connected to WebSocket");
             set({isConnected: true, socket: socket});
         };
 
         socket.onmessage = (event) => {
-            console.log("Message received:", event.data);
             try {
                 const message = JSON.parse(event.data);
                 if (message.type === "ONLINE_USERS") {
