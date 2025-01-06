@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/logout").permitAll()
                         .requestMatchers("/user/check-auth").permitAll()
                         .requestMatchers("/user/**").authenticated()
-                        .requestMatchers("/messages/**").authenticated()
+                        .requestMatchers("/messages/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
