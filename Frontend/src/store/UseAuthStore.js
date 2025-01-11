@@ -4,7 +4,7 @@ import {create} from "zustand";
 import toast from "react-hot-toast";
 import {useChatStore} from "./useChatStore.js";
 
-const webSocketUrl = "ws://localhost:9001";
+const webSocketUrl = import.meta.env.VITE_WEBSOCKET_URL
 
 export const useAuthStore = create((set, get) => ({
     authUser: null,
