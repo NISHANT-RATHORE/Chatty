@@ -1,24 +1,31 @@
+// UseAuthStore.js
 import axiosInstance from "../lib/axios";
 import {create} from "zustand";
 import toast from "react-hot-toast";
 import {useChatStore} from "./useChatStore.js";
 
-const webSocketUrl = import.meta.env.VITE_WEBSOCKET_URL;
+const webSocketUrl = "ws://localhost:9001";
+
 export const useAuthStore = create((set, get) => ({
     authUser: null,
     isSigningUp: false,
     isLoggingIn: false,
     isUpdatingProfile: false,
-    isCheckingAuth: true,
+    isCheckingAuth: false,
     onlineUsers: [],
     stompClient: null,
     socket: null,
     isConnected: false,
 
-    checkAuth: async () => {
+    checkAuth: async (token) => {
         try {
-            const res = await axiosInstance.get("/user/check-auth");
-            set({authUser: res.data})
+            const res = await axiosInstance.get("/user/check-auth", {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            set({authUser: res.data.user});
+            console.log("authUser", res.data.user);
             await get().connectWebSocket()
         } catch (error) {
             console.log("error in checkAuth", error);
@@ -32,7 +39,9 @@ export const useAuthStore = create((set, get) => ({
         set({isSigningUp: true});
         try {
             const res = await axiosInstance.post("/user/register", data);
-            set({authUser: res.data});
+            set({authUser: res.data.user});
+            const token = res.data.token;
+            localStorage.setItem("token", token);
             toast.success("Account created successfully");
             await get().connectWebSocket();
         } catch (error) {
@@ -43,14 +52,16 @@ export const useAuthStore = create((set, get) => ({
         }
     },
 
-    logout: async () => {
+    logout: async (navigate) => {
         try {
-            await axiosInstance.post("/user/logout");
+            // await axiosInstance.post("/user/logout");
             set({authUser: null});
+            localStorage.removeItem("token");
             toast.success("Logged out successfully");
+            // navigate("/login"); // Navigate to login page
             get().disconnectWebSocket();
         } catch (error) {
-            toast.error("Error logging out",error);
+            toast.error("Error logging out", error);
         }
     },
 
@@ -64,7 +75,9 @@ export const useAuthStore = create((set, get) => ({
                     'Authorization': authHeader
                 }
             });
-            set({authUser: res.data});
+            set({authUser: res.data.user});
+            const token = res.data.token;
+            localStorage.setItem("token", token);
             toast.success("Logged in successfully");
             await get().connectWebSocket();
         } catch (error) {
@@ -76,11 +89,13 @@ export const useAuthStore = create((set, get) => ({
     },
 
     updateProfile: async (data) => {
+        const token = localStorage.getItem("token");
         set({isUpdatingProfile: true});
         try {
             const res = await axiosInstance.put("/user/update-profile", data, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
                 }
             });
             set({authUser: res.data});
@@ -94,9 +109,20 @@ export const useAuthStore = create((set, get) => ({
     },
 
     getProfile: async () => {
+        const token = localStorage.getItem("token");
         try {
-            const res = await axiosInstance.get("/user/profile");
-            set({authUser: res.data});
+            console.log("token", token)
+            const res = await axiosInstance.get("/user/profile", {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            if(res.status === 200){
+                set({authUser: res.data});
+                console.log(res.data)
+            } else {
+                console.log("error in getProfile", res)
+            }
         } catch (error) {
             console.log("error in getProfile", error);
         }
@@ -155,3 +181,15 @@ export const useAuthStore = create((set, get) => ({
         }
     },
 }));
+
+// Custom hook to use navigate with useAuthStore
+import {useNavigate} from "react-router-dom";
+
+export const useAuthStoreWithNavigate = () => {
+    const navigate = useNavigate();
+    const store = useAuthStore();
+    return {
+        ...store,
+        logout: () => store.logout(navigate),
+    };
+};

@@ -12,21 +12,33 @@ export const useChatStore = create((set, get) => ({
     isConnected: false,
 
     getUsers: async () => {
+        const token = localStorage.getItem("token");
         set({ isUsersLoading: true });
         try {
-            const res = await axiosInstance.get("/messages/users");
+            const res = await axiosInstance.get("/messages/users", {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             set({ users: res.data });
         } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error("error occurred");
         } finally {
             set({ isUsersLoading: false });
         }
     },
 
     getMessages: async (userId) => {
+        const token = localStorage.getItem("token");
         set({ isMessagesLoading: true });
         try {
-            const res = await axiosInstance.get(`/messages/${userId}`);
+            const res = await axiosInstance.get(`/messages/${userId}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }
+            );
             set({ messages: res.data });
         } catch (error) {
             toast.error(error.response.data.message);
@@ -36,6 +48,7 @@ export const useChatStore = create((set, get) => ({
     },
 
     sendMessage: async (payload) => {
+        const token = localStorage.getItem("token");
         const { text, image } = payload;
         const { selectedUser } = get();
 
@@ -54,6 +67,7 @@ export const useChatStore = create((set, get) => ({
             const res = await axiosInstance.post(`/messages/send/${selectedUser.userId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
                 },
             });
 
