@@ -92,10 +92,8 @@ export const useChatStore = create((set, get) => ({
             socket.onmessage = (event) => {
                 try {
                     const newMessage = JSON.parse(event.data);
-                    console.log("New message received:");
                     if (newMessage.senderId === selectedUser.userId || newMessage.receiverId === selectedUser.userId) {
                         set({ messages: [...get().messages, newMessage] });
-                        console.log("Message for receiver:");
                     }
                 } catch (error) {
                     console.error("Failed to parse message:", error);

@@ -25,7 +25,6 @@ export const useAuthStore = create((set, get) => ({
                 }
             });
             set({authUser: res.data.user});
-            console.log("authUser", res.data.user);
             await get().connectWebSocket()
         } catch (error) {
             console.log("error in checkAuth", error);
@@ -111,7 +110,6 @@ export const useAuthStore = create((set, get) => ({
     getProfile: async () => {
         const token = localStorage.getItem("token");
         try {
-            console.log("token", token)
             const res = await axiosInstance.get("/user/profile", {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -119,7 +117,6 @@ export const useAuthStore = create((set, get) => ({
             })
             if(res.status === 200){
                 set({authUser: res.data});
-                console.log(res.data)
             } else {
                 console.log("error in getProfile", res)
             }

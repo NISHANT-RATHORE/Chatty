@@ -117,7 +117,6 @@ public class UserController {
     @GetMapping("/profile")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<User> getProfile(@RequestHeader(value = "Authorization") String token) {
-        log.info("token: {}", token);
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7); // Remove "Bearer " prefix
             if (jwtUtil.validateToken(token)) {
