@@ -7,6 +7,7 @@ import com.example.backendservice.Service.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,7 @@ public class MessageController {
     }
 
     @GetMapping("/users")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<User>> getUserData(@RequestHeader(value = "Authorization") String token) {
         try {
             if (token != null && token.startsWith("Bearer")) {
@@ -44,6 +46,7 @@ public class MessageController {
     }
 
     @GetMapping("/getId")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> getId(@RequestHeader(value = "Authorization") String jwt) {
         try {
             if (jwt != null && jwt.startsWith("Bearer ")) {
@@ -60,6 +63,7 @@ public class MessageController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<Message>> getMessage(@PathVariable("id") String receiverId,
             @RequestHeader(value = "Authorization") String jwt) {
         try {
@@ -83,6 +87,7 @@ public class MessageController {
     }
 
     @PostMapping("/send/{userId}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Message> sendMessage(@RequestParam(value = "text", required = false) String text,
             @RequestParam(value = "image", required = false) MultipartFile image,
             @PathVariable("userId") String receiverId, @RequestHeader(value = "Authorization") String jwt) {

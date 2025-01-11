@@ -95,6 +95,7 @@ public class UserController {
     }
 
     @PutMapping("/update-profile")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> updateProfile(@RequestParam(required = false) MultipartFile image,
             @RequestHeader(value = "Authorization") String token) {
         if (token != null && token.startsWith("Bearer ")) {
@@ -114,6 +115,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<User> getProfile(@RequestHeader(value = "Authorization") String token) {
         log.info("token: {}", token);
         if (token != null && token.startsWith("Bearer ")) {
