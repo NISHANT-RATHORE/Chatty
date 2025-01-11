@@ -18,6 +18,8 @@ A real-time chat application designed for seamless communication between users. 
   - Persistent message storage using **MongoDB**.
 - **Media Sharing**:
   - Support for sharing images and files.
+- **Update Profile**:
+  - Update profile picture.
 
 ---
 
